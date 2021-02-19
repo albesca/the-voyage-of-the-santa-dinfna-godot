@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Materials/sky.material" type="Material" id=1]
+[ext_resource path="res://Assets/Images/sky.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scripts/Sky.gd" type="Script" id=3]
+
+[node name="Sky" type="TextureRect"]
+material = ExtResource( 1 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Scripts/Sea.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scenes/Wave.tscn" type="PackedScene" id=2]
+
+[node name="Sea" type="YSort"]
+script = ExtResource( 1 )
+WaveScene = ExtResource( 2 )
+waves_spacing = 50
+waves_size = 5
+waves_number = 5
+waves_speed = 1

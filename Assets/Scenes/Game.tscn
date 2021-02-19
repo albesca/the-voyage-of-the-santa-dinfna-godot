@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Scenes/Sky.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Scenes/Ship.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scripts/Game.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Scenes/Sea.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Scenes/Clock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Scenes/Settings.tscn" type="PackedScene" id=6]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 3 )
+SettingsScene = ExtResource( 6 )
+time_speed = 4.0
+current_time = 48
+
+[node name="Sky" parent="." instance=ExtResource( 1 )]
+margin_right = 640.0
+margin_bottom = 480.0
+
+[node name="Clock" parent="." instance=ExtResource( 5 )]
+position = Vector2( 24, 24 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Sea" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 0, 100 )
+waves_spacing = 40
+waves_number = 8
+waves_speed = 16
+
+[node name="Ship" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 220, 240 )
+tilt_speed = 8.0

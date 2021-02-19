@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Images/clock_minutes.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Materials/clock_hand.material" type="Material" id=2]
+
+[node name="HandMinutes" type="TextureRect"]
+material = ExtResource( 2 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
