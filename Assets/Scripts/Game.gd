@@ -8,15 +8,18 @@ const TIME_FACTOR = 192.0
 export (PackedScene) var SettingsScene
 export (float) var time_speed = 1.0
 export (int) var current_time = 0
+export var current_day = 0
 var paused = false
-var current_day = 0
 var time_progress
 var settings
+var crew = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	time_progress = 0
 	update_time()
+	update_day()
+	init_crew()
 
 
 func _process(delta):
@@ -31,6 +34,7 @@ func _process(delta):
 			current_day += 1
 		
 	update_time()
+	update_day()
 	
 	if !paused:
 		if Input.is_action_just_pressed("ui_time_speed_1"):
@@ -86,3 +90,54 @@ func time_speed_changed(new_speed):
 
 func update_sails(upward):
 	$YSort/Ship.update_sails(upward)
+
+
+func update_day():
+	$UserInterface.update_day(current_day)
+
+
+func init_crew():
+	crew.clear()
+	var crew_member = {}
+	crew_member["name"] = "Emilio"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "master"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	crew_member = {}
+	crew_member["name"] = "Giuseppe"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "pilot"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	crew_member = {}
+	crew_member["name"] = "Riccardo"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "caulker"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	crew_member = {}
+	crew_member["name"] = "Giovanni"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "ropemaker"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	crew_member = {}
+	crew_member["name"] = "Marco"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "sailor"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	crew_member = {}
+	crew_member["name"] = "Giorgio"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "sailor"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	crew_member = {}
+	crew_member["name"] = "Tommaso"
+	crew_member["status"] = "idle"
+	crew_member["role"] = "sailor"
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	crew.append(crew_member)
+	$UserInterface.init_crew(crew)
