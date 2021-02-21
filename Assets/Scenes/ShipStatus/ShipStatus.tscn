@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Scenes/ShipStatus/ShipPart.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Scenes/ShipStatus/ShipHold.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Scripts/ShipStatus.gd" type="Script" id=3]
 
 [node name="ShipStatus" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 480.0
@@ -31,3 +33,7 @@ has_fix = true
 
 [node name="ShipHold" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 240 )
+[connection signal="check_status" from="Hull" to="." method="check_hull"]
+[connection signal="check_status" from="Rigging" to="." method="check_rigging"]
+[connection signal="check_status" from="Sails" to="." method="check_sails"]
+[connection signal="check_status" from="ShipHold" to="." method="check_hold"]

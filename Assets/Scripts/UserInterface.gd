@@ -49,5 +49,5 @@ func select_crew_member(member_id):
 	emit_signal("select_crew_member", member_id)
 
 
-func show_ship_status():
-	pass # Replace with function body.
+func toggle_ship_status(button_pressed):
+	$ShipStatus.visible = button_pressed

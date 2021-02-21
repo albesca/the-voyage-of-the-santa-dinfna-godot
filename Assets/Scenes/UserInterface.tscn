@@ -5,7 +5,6 @@
 [ext_resource path="res://Assets/Images/Crew/crew01.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Scenes/ShipStatus/ShipStatus.tscn" type="PackedScene" id=4]
 
-
 [node name="UserInterface" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -47,11 +46,13 @@ margin_top = 6.0
 margin_right = 147.0
 margin_bottom = 31.0
 custom_fonts/font = ExtResource( 1 )
+toggle_mode = true
 text = "Ship"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ShipStatus" parent="." instance=ExtResource( 4 )]
+visible = false
 position = Vector2( -300, 40 )
-[connection signal="pressed" from="Ship" to="." method="show_ship_status"]
+[connection signal="toggled" from="Ship" to="." method="toggle_ship_status"]

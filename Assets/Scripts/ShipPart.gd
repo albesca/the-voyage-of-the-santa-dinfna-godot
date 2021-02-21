@@ -5,6 +5,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+signal check_status
 export (String) var part_name
 export (int) var status
 export (bool) var has_fix
@@ -34,9 +35,18 @@ func decode_status():
 		result = "damaged"
 	elif status == 3:
 		result = "slightly damaged"
-	elif status == 1:
+	elif status == 4:
 		result = "good"
 	else:
 		result = "unknown"
 		
 	return result
+
+
+func update_status(new_status):
+	status = new_status
+	$StatusLabel.text = decode_status()
+
+
+func check_status():
+	emit_signal("check_status")
