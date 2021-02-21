@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/Scenes/Ship.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Scripts/Game.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Scenes/Sea.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Scenes/Clock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Scenes/Clock/Clock.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Scenes/Settings.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Scenes/UserInterface.tscn" type="PackedScene" id=7]
 
@@ -36,3 +36,4 @@ tilt_speed = 8.0
 
 [node name="UserInterface" parent="." instance=ExtResource( 7 )]
 position = Vector2( 380, 24 )
+[connection signal="select_crew_member" from="UserInterface" to="." method="select_crew_member"]

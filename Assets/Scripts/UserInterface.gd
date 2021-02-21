@@ -4,12 +4,13 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+signal select_crew_member(member_id)
 var crew = []
 var day = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Crew.get_popup().connect("id_pressed", self, "select_crew_member")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,3 +43,11 @@ func get_crew_label(current_crew):
 func update_day(new_day):
 	day = new_day
 	$CurrentDay.text = "Day: " + str(day)
+
+
+func select_crew_member(member_id):
+	emit_signal("select_crew_member", member_id)
+
+
+func show_ship_status():
+	pass # Replace with function body.

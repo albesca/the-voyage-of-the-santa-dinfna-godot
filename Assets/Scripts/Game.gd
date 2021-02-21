@@ -140,4 +140,11 @@ func init_crew():
 	crew_member["role"] = "sailor"
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
 	crew.append(crew_member)
+	print(to_json(crew))
 	$UserInterface.init_crew(crew)
+
+
+func select_crew_member(member_id):
+	var selected_member = crew[member_id]
+	print("selected %s [%s]" % [selected_member["name"], \
+			selected_member["role"]])

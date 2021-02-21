@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Fonts/smaller_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Scripts/UserInterface.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Images/Crew/crew01.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Scenes/ShipStatus/ShipStatus.tscn" type="PackedScene" id=4]
+
 
 [node name="UserInterface" type="Node2D"]
 script = ExtResource( 2 )
@@ -27,13 +29,29 @@ __meta__ = {
 }
 
 [node name="Crew" type="MenuButton" parent="."]
-margin_left = 120.0
+margin_left = 160.0
 margin_top = 6.0
-margin_right = 191.0
+margin_right = 235.0
 margin_bottom = 31.0
 custom_fonts/font = ExtResource( 1 )
 text = "Crew: 0"
+flat = false
 items = [ "Emilio: idle", ExtResource( 3 ), 0, false, false, 0, 0, null, "", false, "Giuseppe: idle", null, 0, false, false, 1, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Ship" type="Button" parent="."]
+margin_left = 72.0
+margin_top = 6.0
+margin_right = 147.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 1 )
+text = "Ship"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShipStatus" parent="." instance=ExtResource( 4 )]
+position = Vector2( -300, 40 )
+[connection signal="pressed" from="Ship" to="." method="show_ship_status"]

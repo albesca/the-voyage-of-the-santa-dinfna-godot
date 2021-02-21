@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Fonts/default_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/Fonts/smaller_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Scripts/ShipPart.gd" type="Script" id=3]
+
+[node name="ShipPart" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="NameLabel" type="Label" parent="."]
+margin_right = 120.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 1 )
+text = "Name"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatusLabel" type="Label" parent="."]
+margin_left = 120.0
+margin_right = 240.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Status"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="Button" parent="."]
+margin_left = 255.0
+margin_top = 5.0
+margin_right = 345.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 2 )
+text = "Check"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RepairButton" type="Button" parent="."]
+margin_left = 375.0
+margin_top = 5.0
+margin_right = 465.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 2 )
+text = "Repair"
+__meta__ = {
+"_edit_use_anchors_": false
+}
