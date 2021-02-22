@@ -9,7 +9,7 @@
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 240.0
+margin_right = 270.0
 margin_bottom = 40.0
 color = Color( 0.501961, 0.501961, 0.501961, 1 )
 __meta__ = {
@@ -28,9 +28,9 @@ __meta__ = {
 }
 
 [node name="Crew" type="MenuButton" parent="."]
-margin_left = 160.0
+margin_left = 180.0
 margin_top = 6.0
-margin_right = 235.0
+margin_right = 255.0
 margin_bottom = 31.0
 custom_fonts/font = ExtResource( 1 )
 text = "Crew: 0"
@@ -41,9 +41,9 @@ __meta__ = {
 }
 
 [node name="Ship" type="Button" parent="."]
-margin_left = 72.0
+margin_left = 82.0
 margin_top = 6.0
-margin_right = 147.0
+margin_right = 157.0
 margin_bottom = 31.0
 custom_fonts/font = ExtResource( 1 )
 toggle_mode = true

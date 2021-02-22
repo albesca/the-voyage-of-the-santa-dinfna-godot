@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Fonts/smaller_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/Images/Crew/crew01.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scripts/SelectedCrew.gd" type="Script" id=3]
+
+[node name="SelectedCrew" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 200.0
+margin_bottom = 80.0
+color = Color( 0.501961, 0.501961, 0.501961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="TextureRect" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 58.0
+margin_bottom = 58.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="."]
+margin_left = 80.0
+margin_top = 20.0
+margin_right = 123.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 1 )
+text = "name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Status" type="Label" parent="."]
+margin_left = 80.0
+margin_top = 40.0
+margin_right = 127.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+text = "Status"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 175.0
+margin_right = 200.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 1 )
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="deselect_crew"]

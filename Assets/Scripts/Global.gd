@@ -2,9 +2,13 @@ extends Node
 
 
 const TIME_FACTOR = 192.0
+const TIME_NIGHT_FALL = 152.0
+const TIME_DAY_BREAK = 40.0
+const STATUS_TIERS = 4.0
 
 const PARAM_ID = "id"
 const PARAM_NAME = "name"
+const PARAM_PORTRAIT = "portrait"
 const PARAM_ROLE = "role"
 const PARAM_STATUS = "status"
 
@@ -37,6 +41,8 @@ var ship_status
 var ship_status_list
 var ship_conditions
 var ship_status_id
+var ship_repairs
+var selected_crew
 
 
 func init_ship_status_list():
@@ -45,12 +51,10 @@ func init_ship_status_list():
 
 func init_ship_conditions():
 	ship_conditions = read_file("res://Data/ship_starting_status.json")
-#	ship_conditions = {
-#		"hull": 0.5,
-#		"rigging": 0.5,
-#		"sails": 0.5,
-#		"food rations": 50
-#	}
+
+
+func init_ship_repairs():
+	ship_repairs = read_file("res://Data/ship_parts_repairs.json")
 
 
 func get_light_position():
@@ -66,4 +70,16 @@ func read_file(file_path):
 	file.open(file_path, File.READ)
 	var result = parse_json(file.get_line())
 	file.close()
+	return result
+
+
+func encode_status(status):
+	return ceil(status * STATUS_TIERS)
+
+
+func crew_active_status(status):
+	var result = false
+	if status == CREW_STATUS_IDLE or status == CREW_STATUS_WORKING:
+		result = true
+		
 	return result

@@ -27,13 +27,14 @@ func _process(delta):
 
 	if Global.time_progress > 2:
 		Global.time += 2
-		Global.time_progress = 0
+		Global.time_progress -= 2
+		update_status()
 		if Global.time > Global.TIME_FACTOR:
 			Global.time -= Global.TIME_FACTOR
 			Global.day += 1
+			update_day()
 		
 	update_time()
-	update_day()
 	
 	if !paused:
 		if Input.is_action_just_pressed("ui_time_speed_1"):
@@ -152,7 +153,7 @@ func init_crew():
 	crew_member = {}
 	crew_member[Global.PARAM_ID] = counter
 	crew_member[Global.PARAM_NAME] = "Giorgio"
-	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_STARVING
 	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_CARPENTER
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
 	Global.crew[counter] = crew_member
@@ -160,7 +161,7 @@ func init_crew():
 	crew_member = {}
 	crew_member[Global.PARAM_ID] = counter
 	crew_member[Global.PARAM_NAME] = "Tommaso"
-	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_MISSING
 	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_SAILOR
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
 	Global.crew[counter] = crew_member
@@ -168,7 +169,7 @@ func init_crew():
 	crew_member = {}
 	crew_member[Global.PARAM_ID] = counter
 	crew_member[Global.PARAM_NAME] = "Bartolomeo"
-	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_MAD
 	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_SAILOR
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
 	Global.crew[counter] = crew_member
@@ -176,7 +177,7 @@ func init_crew():
 	crew_member = {}
 	crew_member[Global.PARAM_ID] = counter
 	crew_member[Global.PARAM_NAME] = "Luca"
-	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_DEAD
 	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_SAILOR
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
 	Global.crew[counter] = crew_member
@@ -184,7 +185,19 @@ func init_crew():
 	$UserInterface.init_crew()
 
 
-func select_crew_member(member_id):
-	var selected_member = Global.crew[member_id]
-	print("selected %s [%s]" % [selected_member[Global.PARAM_NAME], \
-			selected_member[Global.PARAM_ROLE]])
+func select_crew_member():
+	if Global.selected_crew:
+		$SelectedCrew.visible = true
+		$SelectedCrew.update_crew()
+
+
+func update_status():
+	#TODO check if hull is damaged and a crew member is working on it
+	#TODO check if rigging is damaged and a crew member is working on it
+	#TODO check if sails are damaged and a crew member is working on them
+	if Global.time < Global.TIME_DAY_BREAK or \
+			Global.time > Global.TIME_NIGHT_FALL:
+		#TODO browse crew and put to sleep any idle or starving member
+		pass
+
+	pass

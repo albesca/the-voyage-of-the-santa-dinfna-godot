@@ -5,9 +5,9 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-signal check_status
 export (String) var part_name
 export (int) var status
+export (String) var part_id
 
 
 # Called when the node enters the scene tree for the first time.
@@ -36,4 +36,7 @@ func update_status(new_status):
 
 
 func check_status():
-	emit_signal("check_status")
+	var actual_status = Global.ship_conditions[part_id]["rations"]
+	Global.ship_conditions[part_id]["known_rations"] = actual_status
+	Global.ship_conditions[part_id]["last_checked"] = Global.time
+	update_status(Global.ship_conditions[part_id]["known_rations"])

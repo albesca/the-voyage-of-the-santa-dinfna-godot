@@ -17,23 +17,23 @@ __meta__ = {
 
 [node name="Hull" parent="." instance=ExtResource( 1 )]
 part_name = "Hull"
+part_id = "hull"
 status = 1
 has_fix = true
 
 [node name="Rigging" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 80 )
 part_name = "Rigging"
+part_id = "rigging"
 has_fix = true
 
 [node name="Sails" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 160 )
 part_name = "Sails"
+part_id = "sails"
 status = 2
 has_fix = true
 
 [node name="ShipHold" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 240 )
-[connection signal="check_status" from="Hull" to="." method="check_hull"]
-[connection signal="check_status" from="Rigging" to="." method="check_rigging"]
-[connection signal="check_status" from="Sails" to="." method="check_sails"]
-[connection signal="check_status" from="ShipHold" to="." method="check_hold"]
+part_id = "hold"

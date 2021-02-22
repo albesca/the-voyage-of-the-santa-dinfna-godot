@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Scenes/Sky.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Scenes/Ship.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Scenes/Clock/Clock.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Scenes/Settings.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Scenes/UserInterface.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Scenes/SelectedCrew.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -35,5 +36,9 @@ position = Vector2( 220, 240 )
 tilt_speed = 8.0
 
 [node name="UserInterface" parent="." instance=ExtResource( 7 )]
-position = Vector2( 380, 24 )
+position = Vector2( 350, 24 )
+
+[node name="SelectedCrew" parent="." instance=ExtResource( 8 )]
+visible = false
+position = Vector2( 12, 388 )
 [connection signal="select_crew_member" from="UserInterface" to="." method="select_crew_member"]

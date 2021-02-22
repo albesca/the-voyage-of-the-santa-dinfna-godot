@@ -5,8 +5,8 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-signal check_status
 export (String) var part_name
+export (String) var part_id
 export (int) var status
 export (bool) var has_fix
 
@@ -49,4 +49,12 @@ func update_status(new_status):
 
 
 func check_status():
-	emit_signal("check_status")
+	var actual_status = Global.ship_conditions[part_id]["integrity"]
+	Global.ship_conditions[part_id]["known_integrity"] = actual_status
+	Global.ship_conditions[part_id]["last_checked"] = Global.time
+	update_status(Global.encode_status(\
+			Global.ship_conditions[part_id]["known_integrity"]))
+
+
+func repair_part():
+	pass # Replace with function body.
