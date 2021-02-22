@@ -4,19 +4,18 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-const TIME_FACTOR = 192.0
 export (PackedScene) var SettingsScene
 export (float) var time_speed = 1.0
 export (int) var current_time = 0
 export var current_day = 0
 var paused = false
-var time_progress
 var settings
-var crew = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	time_progress = 0
+	Global.time_progress = 0
+	Global.time = current_time
+	Global.day = current_day
 	update_time()
 	update_day()
 	init_crew()
@@ -24,14 +23,14 @@ func _ready():
 
 func _process(delta):
 	if !paused:
-		time_progress += delta * time_speed
+		Global.time_progress += delta * time_speed
 
-	if time_progress > 2:
-		current_time += 2
-		time_progress = 0
-		if current_time > TIME_FACTOR:
-			current_time -= TIME_FACTOR
-			current_day += 1
+	if Global.time_progress > 2:
+		Global.time += 2
+		Global.time_progress = 0
+		if Global.time > Global.TIME_FACTOR:
+			Global.time -= Global.TIME_FACTOR
+			Global.day += 1
 		
 	update_time()
 	update_day()
@@ -61,11 +60,10 @@ func _process(delta):
 
 
 func update_time():
-	var normalized_time = (current_time + time_progress) * 360.0 / 192.0
-	$YSort/Ship.update_time(current_time / TIME_FACTOR, normalized_time)
-	$YSort/Sea.update_time(current_time / TIME_FACTOR, normalized_time)
-	$Sky.update_time(current_time / TIME_FACTOR)
-	$Clock.update_time(current_time / TIME_FACTOR)
+	$YSort/Ship.update_time()
+	$YSort/Sea.update_time()
+	$Sky.update_time()
+	$Clock.update_time()
 
 
 func init_settings():
@@ -93,58 +91,100 @@ func update_sails(upward):
 
 
 func update_day():
-	$UserInterface.update_day(current_day)
+	$UserInterface.update_day()
 
 
 func init_crew():
-	crew.clear()
+	if Global.crew:
+		Global.crew.clear()
+	else:
+		Global.crew = {}
+
+	var counter = 0
 	var crew_member = {}
-	crew_member["name"] = "Emilio"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "master"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Giacomo"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_CAPTAIN
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
+	Global.crew[counter] = crew_member
+	counter += 1
 	crew_member = {}
-	crew_member["name"] = "Giuseppe"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "pilot"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Emilio"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_MASTER
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
+	Global.crew[counter] = crew_member
+	counter += 1
 	crew_member = {}
-	crew_member["name"] = "Riccardo"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "caulker"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Giuseppe"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_PILOT
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
+	Global.crew[counter] = crew_member
+	counter += 1
 	crew_member = {}
-	crew_member["name"] = "Giovanni"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "ropemaker"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Riccardo"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_CAULKER
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
+	Global.crew[counter] = crew_member
+	counter += 1
 	crew_member = {}
-	crew_member["name"] = "Marco"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "sailor"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Giovanni"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_ROPEMAKER
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
+	Global.crew[counter] = crew_member
+	counter += 1
 	crew_member = {}
-	crew_member["name"] = "Giorgio"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "sailor"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Marco"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_BOTSWAYN
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
+	Global.crew[counter] = crew_member
+	counter += 1
 	crew_member = {}
-	crew_member["name"] = "Tommaso"
-	crew_member["status"] = "idle"
-	crew_member["role"] = "sailor"
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Giorgio"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_CARPENTER
 	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
-	crew.append(crew_member)
-	print(to_json(crew))
-	$UserInterface.init_crew(crew)
+	Global.crew[counter] = crew_member
+	counter += 1
+	crew_member = {}
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Tommaso"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_SAILOR
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	Global.crew[counter] = crew_member
+	counter += 1
+	crew_member = {}
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Bartolomeo"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_SAILOR
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	Global.crew[counter] = crew_member
+	counter += 1
+	crew_member = {}
+	crew_member[Global.PARAM_ID] = counter
+	crew_member[Global.PARAM_NAME] = "Luca"
+	crew_member[Global.PARAM_STATUS] = Global.CREW_STATUS_IDLE
+	crew_member[Global.PARAM_ROLE] = Global.CREW_ROLE_SAILOR
+	crew_member["portrait"] = load("res://Assets/Images/Crew/crew01.png")
+	Global.crew[counter] = crew_member
+	print(to_json(Global.crew))
+	$UserInterface.init_crew()
 
 
 func select_crew_member(member_id):
-	var selected_member = crew[member_id]
-	print("selected %s [%s]" % [selected_member["name"], \
-			selected_member["role"]])
+	var selected_member = Global.crew[member_id]
+	print("selected %s [%s]" % [selected_member[Global.PARAM_NAME], \
+			selected_member[Global.PARAM_ROLE]])

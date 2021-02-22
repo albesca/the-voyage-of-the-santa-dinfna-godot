@@ -19,6 +19,10 @@ config/name="The Voyage of the Santa Dinfna"
 run/main_scene="res://Assets/Scenes/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Assets/Scripts/Global.gd"
+
 [display]
 
 window/size/width=640

@@ -4,19 +4,19 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var ship_status_list = []
 export (float) var ship_tilt = 0.1
 export (float) var tilt_speed = 0.1
 export (float) var light_factor = 0.5
 export (int) var ship_status_id = -1
-var ship_status
-var ship_conditions = {}
+var texture_dict
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	init_ship_status_list()
-	init_ship_conditions()
+	Global.ship_status_id = ship_status_id
+	Global.init_ship_status_list()
+	Global.init_ship_conditions()
+	init_texture_dict()
 	material.set_shader_param("speed", tilt_speed)
 	material.set_shader_param("tilt", ship_tilt)
 	material.set_shader_param("light_factor", light_factor)
@@ -27,20 +27,20 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-func update_time(light_position, current_time):
-	material.set_shader_param("light_position", light_position)
-	material.set_shader_param("current_time", current_time)
+func update_time():
+	material.set_shader_param("light_position", Global.get_light_position())
+	material.set_shader_param("current_time", Global.get_time())
 
 
 func update_status(new_status):
-	if ship_status_id != new_status and check_status_allowed(new_status):
-		disable_state(ship_status_id)
-		ship_status_id = new_status
-		enable_state(ship_status_id)
+	if Global.ship_status_id != new_status and check_status_allowed(new_status):
+		disable_state(Global.ship_status_id)
+		Global.ship_status_id = new_status
+		enable_state(Global.ship_status_id)
 
 
 func update_sails(upward):
-	var new_status_id = ship_status["id"]
+	var new_status_id = Global.ship_status[Global.PARAM_ID]
 	if upward and new_status_id < 3:
 		new_status_id += 1
 	elif !upward and new_status_id > 0:
@@ -51,15 +51,18 @@ func update_sails(upward):
 
 func check_status_allowed(new_status_id):
 	var result = false
-	if !ship_status:
+	if !Global.ship_status:
 		result = true
 	else:
-		var new_status = ship_status_list[new_status_id]
-		if new_status["minimum_hull"] > ship_conditions["hull"]:
+		var new_status = Global.ship_status_list[str(new_status_id)]
+		if new_status["minimum_hull"] > \
+				Global.ship_conditions["hull"]["known_integrity"]:
 			print("hull needs to be fixed to do this")
-		elif new_status["minimum_rigging"] > ship_conditions["rigging"]:
+		elif new_status["minimum_rigging"] > \
+				Global.ship_conditions["rigging"]["known_integrity"]:
 			print("riggings need to be fixed to do this")
-		elif new_status["minimum_sails"] > ship_conditions["sails"]:
+		elif new_status["minimum_sails"] > \
+				Global.ship_conditions["sails"]["known_integrity"]:
 			print("sails need to be fixed to do this")
 		else:
 			result = true
@@ -68,53 +71,22 @@ func check_status_allowed(new_status_id):
 	
 	
 func disable_state(current_status):
-	if ship_status and ship_status["id"] == current_status:
-		ship_status["texture"].visible = false
+	if Global.ship_status and Global.ship_status[Global.PARAM_ID] == \
+			current_status:
+		var texture_name = Global.ship_status["texture"]
+		texture_dict[texture_name].visible = false
 	
 	
 func enable_state(new_status):
-	ship_status = ship_status_list[new_status]
-	ship_status["texture"].visible = true
+	Global.ship_status = Global.ship_status_list[str(new_status)]
+	var texture_name = Global.ship_status["texture"]
+	texture_dict[texture_name].visible = true
 
 
-func init_ship_status_list():
-	ship_status_list = {
-		0: {
-			"id": 0,
-			"texture": $CarrackNoRigging,
-			"minimum_hull": 0,
-			"minimum_rigging": 0,
-			"minimum_sails": 0
-		},
-		1: {
-			"id": 1,
-			"texture": $CarrackRigging,
-			"minimum_hull": 0.5,
-			"minimum_rigging": 0.5,
-			"minimum_sails": 0
-		},
-		2: {
-			"id": 2,
-			"texture": $CarrackSailsFurled,
-			"minimum_hull": 0.5,
-			"minimum_rigging": 0.5,
-			"minimum_sails": 0.5
-		},
-		3: {
-			"id": 3,
-			"texture": $CarrackSailsUnfurled,
-			"minimum_hull": 1,
-			"minimum_rigging": 1,
-			"minimum_sails": 0.5
-		}
-	}
-	print(to_json(ship_status_list))
-
-
-func init_ship_conditions():
-	ship_conditions = {
-		"hull": 0.5,
-		"rigging": 0.5,
-		"sails": 0.5,
-		"food rations": 50
+func init_texture_dict():
+	texture_dict = {
+		"CarrackNoRigging": $CarrackNoRigging,
+		"CarrackRigging": $CarrackRigging,
+		"CarrackSailsFurled": $CarrackSailsFurled,
+		"CarrackSailsUnfurled": $CarrackSailsUnfurled
 	}

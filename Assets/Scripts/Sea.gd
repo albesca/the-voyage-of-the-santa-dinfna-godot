@@ -32,6 +32,6 @@ func init_waves():
 		waves.append(current_wave)
 
 
-func update_time(light_position, current_time):
+func update_time():
 	for wave in waves:
-		wave.update_time(light_position, current_time)
+		wave.update_time()

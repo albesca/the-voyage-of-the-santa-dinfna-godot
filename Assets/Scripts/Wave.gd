@@ -27,6 +27,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func update_time(light_position, current_time):
-	material.set_shader_param("light_position", light_position)
-	material.set_shader_param("current_time", current_time)
+func update_time():
+	material.set_shader_param("light_position", Global.get_light_position())
+	material.set_shader_param("current_time", Global.get_time())

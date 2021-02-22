@@ -6,7 +6,6 @@ extends Node2D
 # var b = "text"
 signal select_crew_member(member_id)
 var crew = []
-var day = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,13 +17,15 @@ func _ready():
 #	pass
 
 
-func init_crew(new_crew):
+func init_crew():
 	crew = []
-	for current_crew in new_crew:
+	for current_crew_id in Global.crew.keys():
 		var crew_member = {}
-		crew_member["name"] = current_crew["name"]
-		crew_member["role"] = current_crew["role"]
-		crew_member["status"] = current_crew["status"]
+		var current_crew = Global.crew[current_crew_id]
+		crew_member[Global.PARAM_ID] = current_crew[Global.PARAM_ID]
+		crew_member[Global.PARAM_NAME] = current_crew[Global.PARAM_NAME]
+		crew_member[Global.PARAM_ROLE] = current_crew[Global.PARAM_ROLE]
+		crew_member[Global.PARAM_STATUS] = current_crew[Global.PARAM_STATUS]
 		crew_member["portrait"] = current_crew["portrait"]
 		crew.append(crew_member)
 
@@ -32,17 +33,17 @@ func init_crew(new_crew):
 	var popup = $Crew.get_popup()
 	popup.clear()
 	for current_crew in crew:
-		popup.add_icon_item(current_crew["portrait"], get_crew_label(current_crew))
+		popup.add_icon_item(current_crew["portrait"], \
+				get_crew_label(current_crew), current_crew[Global.PARAM_ID])
 
 
 func get_crew_label(current_crew):
-	return current_crew["name"] + " [" + current_crew["role"] + "]: " + \
-			current_crew["status"]
+	return current_crew[Global.PARAM_NAME] + " [" + current_crew[Global.PARAM_ROLE] + "]: " + \
+			current_crew[Global.PARAM_STATUS]
 
 
-func update_day(new_day):
-	day = new_day
-	$CurrentDay.text = "Day: " + str(day)
+func update_day():
+	$CurrentDay.text = "Day: " + str(Global.day)
 
 
 func select_crew_member(member_id):

@@ -16,6 +16,8 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func update_time(clock_position):
-	$HandHours.material.set_shader_param("clock_position", clock_position)
-	$HandMinutes.material.set_shader_param("clock_position", clock_position)
+func update_time():
+	$HandHours.material.set_shader_param("clock_position", \
+			Global.get_light_position())
+	$HandMinutes.material.set_shader_param("clock_position", \
+			Global.get_light_position())

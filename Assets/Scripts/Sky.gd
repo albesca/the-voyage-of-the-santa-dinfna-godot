@@ -15,5 +15,5 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-func update_time(light_position):
-	material.set_shader_param("light_position", light_position)
+func update_time():
+	material.set_shader_param("light_position", Global.get_light_position())

@@ -5,8 +5,6 @@ extends Node2D
 # var a = 2
 # var b = "text"
 #TODO localize using resources
-const TIME_SPEEDS = ["very slow", "slow", "normal", "fast", "very fast"]
-const TIME_SPEED_LABEL = "Time speed: "
 signal time_speed_changed(new_speed)
 var time_speed
 
@@ -34,5 +32,5 @@ func init_slider():
 	
 
 func update_label():
-	$TimeSpeedControls/TimeSpeedLabel.text = TIME_SPEED_LABEL + \
-		TIME_SPEEDS[time_speed]
+	$TimeSpeedControls/TimeSpeedLabel.text = Global.TIME_SPEED_LABEL + \
+		Global.TIME_SPEEDS[time_speed]
