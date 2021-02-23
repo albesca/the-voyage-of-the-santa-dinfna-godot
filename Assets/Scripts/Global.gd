@@ -43,6 +43,7 @@ var ship_conditions
 var ship_status_id
 var ship_repairs
 var selected_crew
+var work
 
 
 func init_ship_status_list():
@@ -83,3 +84,31 @@ func crew_active_status(status):
 		result = true
 		
 	return result
+
+
+func queue_work(ship_part):
+	if !work:
+		work = {}
+		
+	work[selected_crew[PARAM_ID]] = ship_part
+	selected_crew[PARAM_STATUS] = CREW_STATUS_WORKING
+	selected_crew = null
+
+
+func update_work():
+	if work and len(work.keys()) > 0:
+		for worker in work.keys():
+			var part_name = work[worker]
+			var crew_member = crew[worker]
+			var ship_part = ship_conditions[part_name]
+			var part_repairs = ship_repairs[part_name]
+			var base_repair = part_repairs["repair"]
+			var repair_factor = 1.0
+			if crew_member[PARAM_ROLE] in part_repairs["specialization"]:
+				repair_factor = 2.0
+			ship_part["integrity"] += base_repair * repair_factor * 0.01
+			ship_part["known_integrity"] = ship_part["integrity"]
+			if ship_part["integrity"] >= 1.0:
+				ship_part["integrity"] = 1.0
+				work.erase(worker)
+				crew_member[PARAM_STATUS] = CREW_STATUS_IDLE

@@ -43,8 +43,9 @@ func decode_status():
 	return result
 
 
-func update_status(new_status):
-	status = new_status
+func update_status(_new_status):
+	status = Global.encode_status(\
+			Global.ship_conditions[part_id]["known_integrity"])
 	$StatusLabel.text = decode_status()
 
 
@@ -57,4 +58,5 @@ func check_status():
 
 
 func repair_part():
-	pass # Replace with function body.
+	if Global.selected_crew:
+		Global.queue_work(part_id)

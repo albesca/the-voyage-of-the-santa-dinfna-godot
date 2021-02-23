@@ -16,6 +16,7 @@ func _ready():
 	Global.ship_status_id = ship_status_id
 	Global.init_ship_status_list()
 	Global.init_ship_conditions()
+	Global.init_ship_repairs()
 	init_texture_dict()
 	material.set_shader_param("speed", tilt_speed)
 	material.set_shader_param("tilt", ship_tilt)

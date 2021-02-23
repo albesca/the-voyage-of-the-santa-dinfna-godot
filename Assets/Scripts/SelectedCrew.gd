@@ -12,8 +12,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(_delta):
+	if !Global.selected_crew:
+		visible = false
+
+
 func update_crew():
 	$Name.text = Global.selected_crew[Global.PARAM_NAME]
 	$Status.text = Global.selected_crew[Global.PARAM_STATUS]

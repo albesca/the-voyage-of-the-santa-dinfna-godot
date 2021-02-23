@@ -55,3 +55,4 @@ func select_crew_member(member_id):
 
 func toggle_ship_status(button_pressed):
 	$ShipStatus.visible = button_pressed
+	$ShipStatus.init_ship_status()

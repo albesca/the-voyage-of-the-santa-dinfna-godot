@@ -192,6 +192,7 @@ func select_crew_member():
 
 
 func update_status():
+	Global.update_work()
 	#TODO check if hull is damaged and a crew member is working on it
 	#TODO check if rigging is damaged and a crew member is working on it
 	#TODO check if sails are damaged and a crew member is working on them
