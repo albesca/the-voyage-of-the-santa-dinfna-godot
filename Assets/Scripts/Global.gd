@@ -11,6 +11,7 @@ const PARAM_NAME = "name"
 const PARAM_PORTRAIT = "portrait"
 const PARAM_ROLE = "role"
 const PARAM_STATUS = "status"
+const PARAM_WORK = "work"
 
 const CREW_STATUS_IDLE = "idle"
 const CREW_STATUS_STARVING = "starving"
@@ -43,6 +44,7 @@ var ship_conditions
 var ship_status_id
 var ship_repairs
 var selected_crew
+var selected_ship_part
 var work
 
 
@@ -86,30 +88,46 @@ func crew_active_status(status):
 	return result
 
 
-func queue_work(ship_part):
+func queue_work():
 	if !work:
 		work = {}
 		
-	work[selected_crew[PARAM_ID]] = ship_part
+	work[selected_crew[PARAM_ID]] = {
+		PARAM_ID: selected_ship_part[PARAM_ID],
+		PARAM_WORK: selected_ship_part[PARAM_WORK]
+	}
 	selected_crew[PARAM_STATUS] = CREW_STATUS_WORKING
 	selected_crew = null
+	selected_ship_part = null
 
 
 func update_work():
 	if work and len(work.keys()) > 0:
 		for worker in work.keys():
-			var part_name = work[worker]
+			var part_work = work[worker]
+			var part_name = part_work[PARAM_ID]
 			var crew_member = crew[worker]
 			var ship_part = ship_conditions[part_name]
-			var part_repairs = ship_repairs[part_name]
-			var base_repair = part_repairs["repair"]
-			var repair_factor = 1.0
-			if crew_member[PARAM_ROLE] in part_repairs["specialization"]:
-				repair_factor = 2.0
-			ship_part["integrity"] += base_repair * repair_factor * 0.01
-			if ship_part["integrity"] >= 1.0:
-				ship_part["integrity"] = 1.0
+			if part_work[PARAM_WORK] == "repair":
+				var part_repairs = ship_repairs[part_name]
+				var base_repair = part_repairs["repair"]
+				var repair_factor = 1.0
+				if crew_member[PARAM_ROLE] in part_repairs["specialization"]:
+					repair_factor = 2.0
+				ship_part["integrity"] += base_repair * repair_factor * 0.01
+				if ship_part["integrity"] >= 1.0:
+					ship_part["integrity"] = 1.0
+					work.erase(worker)
+					crew_member[PARAM_STATUS] = CREW_STATUS_IDLE
+
+				ship_part["known_integrity"] = ship_part["integrity"]
+				ship_part["last_checked"] = Global.time
+			elif part_work[PARAM_WORK] == "check":
 				work.erase(worker)
 				crew_member[PARAM_STATUS] = CREW_STATUS_IDLE
-
-			ship_part["known_integrity"] = ship_part["integrity"]
+				if part_name == "hold":
+					ship_part["known_rations"] = ship_part["rations"]
+					ship_part["last_checked"] = Global.time
+				else:
+					ship_part["known_integrity"] = ship_part["integrity"]
+					ship_part["last_checked"] = Global.time

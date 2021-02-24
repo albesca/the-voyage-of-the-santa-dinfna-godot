@@ -186,9 +186,15 @@ func init_crew():
 
 
 func select_crew_member():
-	if Global.selected_crew:
+	if Global.selected_crew and not Global.selected_ship_part:
 		$SelectedCrew.visible = true
 		$SelectedCrew.update_crew()
+
+
+func select_ship_part():
+	if Global.selected_ship_part and not Global.selected_crew:
+		$SelectedShipPart.visible = true
+		$SelectedShipPart.update_ship_part()
 
 
 func update_status():

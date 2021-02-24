@@ -37,3 +37,7 @@ has_fix = true
 [node name="ShipHold" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 240 )
 part_id = "hold"
+[connection signal="select_ship_part" from="Hull" to="." method="select_ship_part"]
+[connection signal="select_ship_part" from="Rigging" to="." method="select_ship_part"]
+[connection signal="select_ship_part" from="Sails" to="." method="select_ship_part"]
+[connection signal="select_ship_part" from="ShipHold" to="." method="select_ship_part"]
