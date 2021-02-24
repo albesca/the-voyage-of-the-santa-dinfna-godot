@@ -30,8 +30,8 @@ func decode_status():
 	return result
 
 
-func update_status(new_status):
-	status = new_status
+func update_status():
+	status = Global.ship_conditions[part_id]["known_rations"]
 	$StatusLabel.text = decode_status()
 
 
@@ -39,4 +39,4 @@ func check_status():
 	var actual_status = Global.ship_conditions[part_id]["rations"]
 	Global.ship_conditions[part_id]["known_rations"] = actual_status
 	Global.ship_conditions[part_id]["last_checked"] = Global.time
-	update_status(Global.ship_conditions[part_id]["known_rations"])
+	update_status()

@@ -107,8 +107,9 @@ func update_work():
 			if crew_member[PARAM_ROLE] in part_repairs["specialization"]:
 				repair_factor = 2.0
 			ship_part["integrity"] += base_repair * repair_factor * 0.01
-			ship_part["known_integrity"] = ship_part["integrity"]
 			if ship_part["integrity"] >= 1.0:
 				ship_part["integrity"] = 1.0
 				work.erase(worker)
 				crew_member[PARAM_STATUS] = CREW_STATUS_IDLE
+
+			ship_part["known_integrity"] = ship_part["integrity"]

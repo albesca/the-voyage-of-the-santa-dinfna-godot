@@ -15,11 +15,7 @@ func _ready():
 #func _process(delta):
 #	pass
 func init_ship_status():
-	$Hull.update_status(Global.ship_conditions["hull"]["known_integrity"])
-	$Rigging.update_status(Global.ship_conditions["rigging"]["known_integrity"])
-	$Sails.update_status(Global.ship_conditions["sails"]["known_integrity"])
-	$ShipHold.update_status(Global.ship_conditions["hold"]["known_rations"])
-
-
-func encode_status(status):
-	return ceil(status * 4.0) 
+	$Hull.update_status()
+	$Rigging.update_status()
+	$Sails.update_status()
+	$ShipHold.update_status()

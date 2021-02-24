@@ -37,13 +37,15 @@ func decode_status():
 		result = "slightly damaged"
 	elif status == 4:
 		result = "good"
+	elif status == 5:
+		result = "perfect"
 	else:
 		result = "unknown"
 		
 	return result
 
 
-func update_status(_new_status):
+func update_status():
 	status = Global.encode_status(\
 			Global.ship_conditions[part_id]["known_integrity"])
 	$StatusLabel.text = decode_status()
@@ -53,8 +55,7 @@ func check_status():
 	var actual_status = Global.ship_conditions[part_id]["integrity"]
 	Global.ship_conditions[part_id]["known_integrity"] = actual_status
 	Global.ship_conditions[part_id]["last_checked"] = Global.time
-	update_status(Global.encode_status(\
-			Global.ship_conditions[part_id]["known_integrity"]))
+	update_status()
 
 
 func repair_part():
