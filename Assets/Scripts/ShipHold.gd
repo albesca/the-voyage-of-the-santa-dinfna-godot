@@ -13,6 +13,7 @@ signal select_ship_part
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$TextureRect.texture = load("res://Assets/Images/" + part_id + "_icon.png")
 	$NameLabel.text = part_name
 	$StatusLabel.text = decode_status()
 

@@ -14,6 +14,7 @@ export (bool) var has_fix
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$TextureRect.texture = load("res://Assets/Images/" + part_id + "_icon.png")
 	$NameLabel.text = part_name
 	$StatusLabel.text = decode_status()
 	if has_fix:

@@ -52,7 +52,7 @@ __meta__ = {
 
 [node name="ShipStatus" parent="." instance=ExtResource( 4 )]
 visible = false
-position = Vector2( -300, 40 )
+position = Vector2( -260, 64 )
 [connection signal="about_to_show" from="Crew" to="." method="init_crew"]
 [connection signal="toggled" from="Ship" to="." method="toggle_ship_status"]
 [connection signal="select_ship_part" from="ShipStatus" to="." method="select_ship_part"]

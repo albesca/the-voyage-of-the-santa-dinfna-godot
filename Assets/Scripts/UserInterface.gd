@@ -19,6 +19,7 @@ func _ready():
 
 
 func init_crew():
+	$Ship.pressed = false
 	crew = []
 	for current_crew_id in Global.crew.keys():
 		var crew_member = {}
