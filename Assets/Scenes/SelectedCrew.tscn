@@ -1,19 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Fonts/smaller_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Images/Crew/crew01.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Scripts/SelectedCrew.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Images/wood_board200x80.png" type="Texture" id=4]
 
 [node name="SelectedCrew" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="TextureRect" parent="."]
 margin_right = 200.0
 margin_bottom = 80.0
-color = Color( 0.501961, 0.501961, 0.501961, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource( 4 )
 
 [node name="Portrait" type="TextureRect" parent="."]
 margin_left = 10.0

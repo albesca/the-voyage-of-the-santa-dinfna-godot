@@ -30,9 +30,9 @@ __meta__ = {
 }
 
 [node name="CheckButton" type="Button" parent="."]
-margin_left = 255.0
+margin_left = 245.0
 margin_top = 5.0
-margin_right = 345.0
+margin_right = 335.0
 margin_bottom = 45.0
 custom_fonts/font = ExtResource( 2 )
 text = "Check"
@@ -42,9 +42,9 @@ __meta__ = {
 
 [node name="RepairButton" type="Button" parent="."]
 visible = false
-margin_left = 375.0
+margin_left = 355.0
 margin_top = 5.0
-margin_right = 465.0
+margin_right = 445.0
 margin_bottom = 45.0
 custom_fonts/font = ExtResource( 2 )
 text = "Repair"
