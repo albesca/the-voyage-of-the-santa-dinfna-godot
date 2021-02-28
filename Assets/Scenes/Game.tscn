@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Scenes/Sky.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Scenes/Ship.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Assets/Scenes/UserInterface.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Scenes/SelectedCrew.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Scenes/SelectedShipPart.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Images/rain_template.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Materials/rain.material" type="Material" id=11]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -16,13 +18,11 @@ SettingsScene = ExtResource( 6 )
 time_speed = 4.0
 current_time = 48
 current_day = 1
+weather_stability = 75
 
 [node name="Sky" parent="." instance=ExtResource( 1 )]
 margin_right = 640.0
 margin_bottom = 480.0
-
-[node name="Clock" parent="." instance=ExtResource( 5 )]
-position = Vector2( 24, 24 )
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -35,6 +35,19 @@ waves_speed = 16
 [node name="Ship" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 220, 240 )
 tilt_speed = 8.0
+
+[node name="RainLayer" type="TextureRect" parent="."]
+material = ExtResource( 11 )
+margin_right = 640.0
+margin_bottom = 480.0
+texture = ExtResource( 10 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Clock" parent="." instance=ExtResource( 5 )]
+position = Vector2( 24, 24 )
 
 [node name="UserInterface" parent="." instance=ExtResource( 7 )]
 position = Vector2( 350, 24 )

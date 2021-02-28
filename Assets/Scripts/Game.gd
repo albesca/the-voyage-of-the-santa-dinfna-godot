@@ -10,6 +10,10 @@ export (int) var current_time = 0
 export var current_day = 0
 var paused = false
 var settings
+var raining = false
+export (int) var weather_stability
+var weather_inertia = 10.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +33,7 @@ func _process(delta):
 		Global.time += 2
 		Global.time_progress -= 2
 		update_status()
+		update_weather()
 		if Global.time > Global.TIME_FACTOR:
 			Global.time -= Global.TIME_FACTOR
 			Global.day += 1
@@ -61,6 +66,8 @@ func _process(delta):
 
 
 func update_time():
+	$RainLayer.material.set_shader_param("light_position", \
+			Global.get_light_position())
 	$YSort/Ship.update_time()
 	$YSort/Sea.update_time()
 	$Sky.update_time()
@@ -208,3 +215,13 @@ func update_status():
 		pass
 
 	pass
+
+
+func update_weather():
+	randomize()
+	if randf() > (weather_stability * weather_inertia) / 100.0:
+		weather_inertia = 10.0
+		raining = !raining
+		$RainLayer.material.set_shader_param("raining", raining)
+	else:
+		weather_inertia *= 0.95
