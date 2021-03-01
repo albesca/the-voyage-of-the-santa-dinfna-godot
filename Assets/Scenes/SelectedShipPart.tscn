@@ -12,8 +12,21 @@ script = ExtResource( 2 )
 margin_right = 200.0
 margin_bottom = 80.0
 texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="TextureRect" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 60.0
+margin_bottom = 60.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PartName" type="Label" parent="."]
+visible = false
 margin_left = 20.0
 margin_top = 25.0
 margin_right = 68.0

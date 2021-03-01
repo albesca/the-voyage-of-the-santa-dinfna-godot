@@ -10,6 +10,7 @@ export (int) var current_time = 0
 export var current_day = 0
 var paused = false
 var settings
+var clouded = false
 var raining = false
 export (int) var weather_stability
 var weather_inertia = 10.0
@@ -20,6 +21,7 @@ func _ready():
 	Global.time_progress = 0
 	Global.time = current_time
 	Global.day = current_day
+	Global.weather_status = 0
 	update_time()
 	update_day()
 	init_crew()
@@ -68,6 +70,8 @@ func _process(delta):
 func update_time():
 	$RainLayer.material.set_shader_param("light_position", \
 			Global.get_light_position())
+	$RainLayer.material.set_shader_param("weather_position",\
+			Global.get_weather_position())
 	$YSort/Ship.update_time()
 	$YSort/Sea.update_time()
 	$Sky.update_time()
@@ -206,22 +210,37 @@ func select_ship_part():
 
 func update_status():
 	Global.update_work()
-	#TODO check if hull is damaged and a crew member is working on it
-	#TODO check if rigging is damaged and a crew member is working on it
-	#TODO check if sails are damaged and a crew member is working on them
 	if Global.time < Global.TIME_DAY_BREAK or \
 			Global.time > Global.TIME_NIGHT_FALL:
 		#TODO browse crew and put to sleep any idle or starving member
 		pass
-
-	pass
 
 
 func update_weather():
 	randomize()
 	if randf() > (weather_stability * weather_inertia) / 100.0:
 		weather_inertia = 10.0
-		raining = !raining
-		$RainLayer.material.set_shader_param("raining", raining)
+		if Global.weather_status == 0:
+			Global.weather_status += 1
+		elif Global.weather_status == 3:
+			Global.weather_status -=1
+		elif randi() % 3 == 2:
+			Global.weather_status += 1
+		else:
+			Global.weather_status -=1
 	else:
 		weather_inertia *= 0.95
+
+	if Global.weather_status == 0:
+		clouded = false
+		raining = false
+	elif Global.weather_status == 1:
+		clouded = true
+		raining = false
+	elif Global.weather_status == 2:
+		clouded = true
+		raining = true
+
+	$Sky.clouded = clouded
+	$RainLayer.material.set_shader_param("raining", raining)
+	update_time()

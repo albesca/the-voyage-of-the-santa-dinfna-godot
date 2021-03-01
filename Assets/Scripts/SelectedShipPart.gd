@@ -17,8 +17,10 @@ func _process(_delta):
 
 
 func update_ship_part():
-	$PartName.text = Global.selected_ship_part[Global.PARAM_ID]
+	var part_id = Global.selected_ship_part[Global.PARAM_ID]
+	$PartName.text = part_id
 	$WorkType.text = Global.selected_ship_part[Global.PARAM_WORK]
+	$Icon.texture = load("res://Assets/Images/" + part_id + "_icon.png")
 
 
 func deselect_ship_part():

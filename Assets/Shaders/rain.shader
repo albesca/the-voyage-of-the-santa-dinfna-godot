@@ -2,6 +2,7 @@ shader_type canvas_item;
 
 uniform sampler2D light_color: hint_black;
 uniform float light_position = 0.5;
+uniform float weather_position = 0.0;
 uniform vec4 rain_color: hint_color;
 uniform bool raining;
 
@@ -25,7 +26,7 @@ void fragment() {
 			rain_frame = 0.25;
 		}
 		if (round(base_color.r * 4.0) == round(rain_frame * 4.0)) {
-			vec4 current_light_color = texture(light_color, vec2(light_position, 0.0));
+			vec4 current_light_color = texture(light_color, vec2(light_position, weather_position));
 			COLOR = get_lighted_color(rain_color, current_light_color);
 		} else {
 			COLOR = vec4(0.0, 0.0, 0.0, 0.0);

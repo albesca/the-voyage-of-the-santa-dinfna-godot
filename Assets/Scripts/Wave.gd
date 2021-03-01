@@ -30,3 +30,4 @@ func _ready():
 func update_time():
 	material.set_shader_param("light_position", Global.get_light_position())
 	material.set_shader_param("current_time", Global.get_time())
+	material.set_shader_param("weather_position", Global.get_weather_position())

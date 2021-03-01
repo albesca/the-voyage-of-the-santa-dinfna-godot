@@ -2,6 +2,7 @@ extends Node
 
 
 const TIME_FACTOR = 192.0
+const WEATHER_FACTOR = 4.0
 const TIME_NIGHT_FALL = 152.0
 const TIME_DAY_BREAK = 40.0
 const STATUS_TIERS = 4.0
@@ -37,6 +38,7 @@ var crew
 var time
 var day
 var time_progress
+var weather_status
 
 var ship_status
 var ship_status_list
@@ -62,6 +64,10 @@ func init_ship_repairs():
 
 func get_light_position():
 	return time / TIME_FACTOR
+
+
+func get_weather_position():
+	return (weather_status + 0.5) / WEATHER_FACTOR
 
 
 func get_time():
